@@ -7,13 +7,7 @@ pipeline {
                 echo 'Building..'
 		sh './create.sh'
             }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-		sh ',testing.sh'
-            }	
-        }
+        }     
 	stage('publish') {
             steps {
                 echo 'starting app....'
