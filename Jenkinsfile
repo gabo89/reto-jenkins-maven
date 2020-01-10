@@ -1,5 +1,5 @@
 pipeline {
-   agent none
+   agent any
 
  environment {
     registry1 = "dockeragent89/mongodb-ibm"
@@ -21,11 +21,12 @@ pipeline {
 	}
 
 	stage('test backend as node app before containerize'){
-	agent  {
-		docker {image 'node:7-alpine' }
-	}
 	steps{
-		sh 'node ${env.WORKSPACE}/nodejs/server.js'
+		dir("${env.WORKSPACE}/nodejs")
+		{
+		sh "npm install"
+		sh "npm test"
+		}
 	}
 	}
 
