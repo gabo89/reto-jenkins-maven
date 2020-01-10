@@ -41,7 +41,7 @@ pipeline {
             }
         }  
 
-	stage('publish images') {
+	stage('remove unused images') {
             steps {
 		sh "docker rmi ${env.registry1}:${env.BUILD_ID}"
 		sh "docker rmi ${env.registry2}:${env.BUILD_ID}"
