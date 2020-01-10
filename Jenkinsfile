@@ -98,7 +98,7 @@ sh "docker network create --subnet=192.168.50.0/24 private_net && echo 'network 
 stage('start database containers ') {
             steps {
 
-sh "docker run --name runing-mongo -u root --net private_net --ip 192.168.50.5 --rm -d -p 27017:27017  dockeragent89/mongodb-ibm:latest"
+sh "docker run --name runing-mongo -u root --net private_net --ip 192.168.50.5 --rm -d dockeragent89/mongodb-ibm:latest"
 	}
 
 }
@@ -112,9 +112,9 @@ stage('wait to mongodb ') {
 
 stage('start frontend-backend containers ') {
             steps {
-sh "docker run --name runing-node -u root --net private_net --ip 192.168.50.4 --rm -d -p 4000:4000  dockeragent89/node-ibm:latest"
+sh "docker run --name runing-node -u root --net private_net --ip 192.168.50.4 --rm -d  dockeragent89/node-ibm:latest"
 
-sh "docker run --name runing-nginx -u root --net private_net --ip 192.168.50.3 --rm -d -p 85:85 dockeragent89/nginx-ibm:latest"
+sh "docker run --name runing-nginx -u root --net private_net --ip 192.168.50.3 --rm -d dockeragent89/nginx-ibm:latest"
 
 
             }
