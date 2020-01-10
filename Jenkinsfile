@@ -111,7 +111,8 @@ sh "docker run --name runing-nginx -u root --net private_net --ip 192.168.50.3 -
 
   post {
         always {
-            deleteDir() /* clean up our workspace */
+            deleteDir() /* clean up our workspace */	  
+            sh "docker container ls "
         }
         success {
             echo "succeeeded!"
