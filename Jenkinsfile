@@ -58,9 +58,12 @@ pipeline {
 
 	stage('remove unused images') {
             steps {
-		sh "docker rmi ${env.registry1}:latest"
-		sh "docker rmi ${env.registry2}:latest"
-		sh "docker rmi ${env.registry3}:latest"
+		sh "docker rmi -f ${env.registry1} && echo 'recent erased ' || echo 'erased'"
+		sh "docker rmi -f ${env.registry2} && echo 'recent erased ' || echo 'erased'"
+		sh "docker rmi -f ${env.registry3} && echo 'recent erased ' || echo 'erased'"
+		sh "docker rmi -f ${env.registry1}:latest && echo 'recent erased ' || echo 'erased'"
+		sh "docker rmi -f ${env.registry2}:latest && echo 'recent erased ' || echo 'erased'"
+		sh "docker rmi -f ${env.registry3}:latest && echo 'recent erased ' || echo 'erased'"
             }
         }  
 
@@ -91,7 +94,7 @@ sh "docker run --name runing-mongo -u root --net private_net --ip 192.168.50.5 -
 stage('wait to mongodb ') {
             steps {
 		echo "waiting"
-		sh "sleep 15"
+		sh "sleep 7"
 		}
 }
 

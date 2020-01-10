@@ -5,6 +5,6 @@ RUN npm install
 RUN npm fund
 COPY server.js /usr/src/app/server.js
 EXPOSE 4000
-CMD [ "nodemon", "/usr/src/app/server.js" ]
+CMD [ "node", "/usr/src/app/server.js" ]
 
 
