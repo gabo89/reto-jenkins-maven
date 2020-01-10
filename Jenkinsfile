@@ -91,7 +91,7 @@ sh "docker run --name runing-mongo -u root --net private_net --ip 192.168.50.5 -
 stage('wait to mongodb ') {
             steps {
 		echo "waiting"
-		sh "sleep 30000"
+		sh "sleep 120"
 		}
 }
 
