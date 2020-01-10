@@ -80,7 +80,7 @@ sh "docker stop runing-mongo && echo 'container removed' || echo 'container  doe
             }
         }  
 
-stage('start database images ') {
+stage('start database containers ') {
             steps {
 
 sh "docker run --name runing-mongo -u root --net private_net --ip 192.168.50.5 --rm -d -p 27017:27017  dockeragent89/mongodb-ibm:latest"
@@ -91,11 +91,11 @@ sh "docker run --name runing-mongo -u root --net private_net --ip 192.168.50.5 -
 stage('wait to mongodb ') {
             steps {
 		echo "waiting"
-		sh "sleep 120"
+		sh "sleep 60"
 		}
 }
 
-stage('start frontend-backend images ') {
+stage('start frontend-backend containers ') {
             steps {
 sh "docker run --name runing-node -u root --net private_net --ip 192.168.50.4 --rm -d -p 4000:4000  dockeragent89/node-ibm:latest"
 
