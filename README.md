@@ -2,28 +2,43 @@
 
 
 ------------------------------------
+
+```
 sudo yum check-update
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum install docker
 sudo systemctl start docker
 sudo systemctl enable docker
+```
 ------------------------------------
 
 docker must be running in jenkins master
 in test environment run docker as root 
 add jenkins into docker socket
 
+```
 sudo usermod -a -G root jenkins 
 
-install jenkins via rpm and configure pipeline plugin, gitlab plugin, docker plugin, git plugin 
+```
+install jenkins via rpm and install
+
+``` 
+pipeline plugin
+gitlab plugin
+docker plugin
+git plugin 
+```
 restart jenkins , set pipeline task and set git url to https://gitlab.com/gabo89/reto-ibm
 
 this are script to test and semi automatize task for troubleshooting
 ------------------------------------
+
+```
 1:create.sh 
 2:publish.sh 
 3:deploy.sh
+```
 ------------------------------------
 
 
