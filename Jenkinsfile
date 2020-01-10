@@ -54,13 +54,23 @@ pipeline {
           		}
                     }
             }
-        }  
+        } 
+
+stage('stop running images if available') {
+            steps {
+sh "docker stop runing-nginx && echo 'container removed' || echo 'container  does not exist'"
+sh "docker stop runing-node && echo 'container removed' || echo 'container  does not exist'"
+sh "docker stop runing-mongo && echo 'container removed' || echo 'container  does not exist'"
+            }
+        }   
 
 	stage('remove unused images') {
             steps {
-		sh "docker rmi -f ${env.registry1} && echo 'recent erased ' || echo 'erased'"
-		sh "docker rmi -f ${env.registry2} && echo 'recent erased ' || echo 'erased'"
-		sh "docker rmi -f ${env.registry3} && echo 'recent erased ' || echo 'erased'"
+
+		/* dont allow local old docker.io images break the new images*/
+		sh "docker rmi -f docker.io/dockeragent89/node-ibm && echo 'recent erased ' || echo 'erased'"
+		sh "docker rmi -f docker.io/dockeragent89/nginx-ibm && echo 'recent erased ' || echo 'erased'"
+		sh "docker rmi -f docker.io/dockeragent89/mongodb-ibm && echo 'recent erased ' || echo 'erased'"
 		sh "docker rmi -f ${env.registry1}:latest && echo 'recent erased ' || echo 'erased'"
 		sh "docker rmi -f ${env.registry2}:latest && echo 'recent erased ' || echo 'erased'"
 		sh "docker rmi -f ${env.registry3}:latest && echo 'recent erased ' || echo 'erased'"
@@ -75,13 +85,6 @@ sh "docker network create --subnet=192.168.50.0/24 private_net && echo 'network 
             }
         }  
 
-	stage('stop running images if available') {
-            steps {
-sh "docker stop runing-nginx && echo 'container removed' || echo 'container  does not exist'"
-sh "docker stop runing-node && echo 'container removed' || echo 'container  does not exist'"
-sh "docker stop runing-mongo && echo 'container removed' || echo 'container  does not exist'"
-            }
-        }  
 
 stage('start database containers ') {
             steps {
@@ -113,7 +116,7 @@ sh "docker run --name runing-nginx -u root --net private_net --ip 192.168.50.3 -
   post {
         always {
             deleteDir() /* clean up our workspace */	  
-            sh "docker container ls "
+            sh "docker container ls"
         }
         success {
             echo "succeeeded!"
