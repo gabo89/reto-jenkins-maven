@@ -23,9 +23,9 @@ pipeline {
         stage('Build images') {
             steps {
 		script {
-	mongodb = docker.build("${env.registry1}:${env.BUILD_ID}","-f ${env.WORKSPACE}/mongodb/Dockerfile .")
-       	nodejs = docker.build("${env.registry2}:${env.BUILD_ID}","-f ${env.WORKSPACE}/nodejs/Dockerfile .") 
-       	nginx =  docker.build("${env.registry3}${env.BUILD_ID}","-f ${env.WORKSPACE}/nginx/Dockerfile .") 
+	mongodb = docker.build("${env.registry1}:${env.BUILD_ID}","-f ${env.WORKSPACE}/mongodb/Dockerfile ${env.WORKSPACE}/mongodb/")
+       	nodejs = docker.build("${env.registry2}:${env.BUILD_ID}","-f ${env.WORKSPACE}/nodejs/Dockerfile ${env.WORKSPACE}/nodejs/") 
+       	nginx =  docker.build("${env.registry3}${env.BUILD_ID}","-f ${env.WORKSPACE}/nginx/Dockerfile ${env.WORKSPACE}/nginx/") 
                     }
             }
         }     
