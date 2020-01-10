@@ -55,6 +55,20 @@ _server.get('/retoibm/sumar/:sumando01/:sumando02', function(request, response) 
   }
 });
 
+_server.get('/retoibm/getall', function(request, response) {
+
+ var data = db.collection('sumas');
+
+    data.find({}).toArray(function (err, result) {
+        if (err) {
+            return response.status(500).json({error:err});
+        } else {
+            return response.status(200).json(result);
+        }
+    })
+
+});
+
 
 _server.listen(_port, () => {
    console.log(`Server listening at ${_port}`);

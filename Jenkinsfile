@@ -117,6 +117,10 @@ sh "docker run --name runing-nginx -u root --net private_net --ip 192.168.50.3 -
         always {
             deleteDir() /* clean up our workspace */	  
             sh "docker container ls"
+	    sh "curl http://192.168.50.3:85/retoibm/sumar/100/200"
+	    sh "curl http://192.168.50.3:85/retoibm/sumar/50/25"
+	    sh "curl http://192.168.50.3:85/retoibm/sumar/67/33"
+
         }
         success {
             echo "succeeeded!"
