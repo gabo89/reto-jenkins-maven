@@ -91,7 +91,7 @@ sh "docker run --name runing-mongo -u root --net private_net --ip 192.168.50.5 -
 stage('wait to mongodb ') {
             steps {
 		echo "waiting"
-		sh "sleep 30"
+		sh "sleep 15"
 		}
 }
 
@@ -100,8 +100,6 @@ stage('start frontend-backend containers ') {
 sh "docker run --name runing-node -u root --net private_net --ip 192.168.50.4 --rm -d -p 4000:4000  dockeragent89/node-ibm:latest"
 
 sh "docker run --name runing-nginx -u root --net private_net --ip 192.168.50.3 --rm -d -p 85:85 dockeragent89/nginx-ibm:latest"
-
-
 
 
             }
