@@ -44,9 +44,21 @@ this are script to test and semi automatize task for troubleshooting
 
 aditional info
 ------------------------------------
+
+```
 *pick a agent or master in linux  that have docker installed and also check that some build may fail due to workspace get inconsistent across different agent so its better to build into single node jenkins master for testing purpose (aplication debug vs infraestructure debug)
 *check space in jenkins agent or master, disk memory and cpu usage , on high usage environment some build may not complete due to not enought resources
 *run strictly on linux jenkins node  since i have not jenkins agent or master running on windows  and cannot ensure aplication is runable in windows
 *remenber to clean the latest tag,sometimes it doesnt get updated in docker hub 
 *remenber to clean local images cloned from remote registry ,sometimes does not get updated
+```
 ------------------------------------
+
+umongo-client
+------------------------------------
+execute sh script ,can be used to check mongodb status and make queries, set connection string 
+```
+mongodb://192.168.50.5:27017/sumas
+```
+------------------------------------
+
