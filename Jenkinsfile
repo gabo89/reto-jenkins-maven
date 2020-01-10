@@ -1,6 +1,10 @@
 pipeline {
    agent any
 
+ options {
+      timeout(time: 30, unit: 'MINUTES') 
+  }
+
  environment {
     registry1 = "dockeragent89/mongodb-ibm"
     registry2 = "dockeragent89/node-ibm"
@@ -70,20 +74,36 @@ sh "docker network create --subnet=192.168.50.0/24 private_net && echo 'network 
 
 	stage('stop running images if available') {
             steps {
-sh "docker stop runing-mongo && echo 'container removed' || echo 'container  does not exist'"
-sh "docker stop runing-node && echo 'container removed' || echo 'container  does not exist'"
 sh "docker stop runing-nginx && echo 'container removed' || echo 'container  does not exist'"
+sh "docker stop runing-node && echo 'container removed' || echo 'container  does not exist'"
+sh "docker stop runing-mongo && echo 'container removed' || echo 'container  does not exist'"
             }
         }  
 
-stage('start running images ') {
+stage('start database images ') {
             steps {
 
 sh "docker run --name runing-mongo -u root --net private_net --ip 192.168.50.5 --rm -d -p 27017:27017  dockeragent89/mongodb-ibm:latest"
+	}
+
+}
+
+stage('wait to mongodb ') {
+options {
+                timeout(time: 5, unit: 'MINUTES') 
+            }
+
+            steps {
+echo "waiting"
+		}
+}
+
+stage('start frontend-backend images ') {
+            steps {
+sh "docker run --name runing-node -u root --net private_net --ip 192.168.50.4 --rm -d -p 4000:4000  dockeragent89/node-ibm:latest"
 
 sh "docker run --name runing-nginx -u root --net private_net --ip 192.168.50.3 --rm -d -p 85:85 dockeragent89/nginx-ibm:latest"
 
-sh "docker run --name runing-node -u root --net private_net --ip 192.168.50.4 --rm -d -p 4000:4000  dockeragent89/node-ibm:latest"
 
 
 

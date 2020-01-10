@@ -7,10 +7,12 @@ mongoose.connect(url, {useNewUrlParser: true,useUnifiedTopology:true});
 
 const _server = _express();
 
+console.log("conecting to mongodb://192.168.50.5:27017/sumas");
+
 const _port = 4000;
 var db = mongoose.connection;
 db.on('error',function(){
- console.log('connection error:');
+ console.log('connection error');
 });
 
 db.once('open', function() {

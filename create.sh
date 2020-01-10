@@ -1,8 +1,4 @@
 #!/bin/bash
-cd ./nginx
-docker build -f Dockerfile -t dockeragent89/nginx-ibm .
-cd ..
-cd ./nodejs
-docker build -f Dockerfile -t dockeragent89/node-ibm .
-cd ./mongodb
-docker build -f Dockerfile -t dockeragent89/mongodb-ibm .
+docker build -f ./nginx/Dockerfile -t dockeragent89/nginx-ibm ./nginx/
+docker build -f ./nodejs/Dockerfile -t dockeragent89/node-ibm ./nodejs/
+docker build -f ./mongodb/Dockerfile -t dockeragent89/mongodb-ibm ./mongodb/
