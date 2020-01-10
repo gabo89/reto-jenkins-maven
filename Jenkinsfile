@@ -1,5 +1,5 @@
 pipeline {
-   agent any
+   agent none
 
  environment {
     registry1 = "dockeragent89/mongodb-ibm"
@@ -15,20 +15,28 @@ pipeline {
     stages {
 
 	stage('docker hub credentials'){
-	 steps{
+	steps{
 		echo "dockeragent89:pelado89fiera"
 	}			
 	}
 
+	stage('test backend as node app before containerize'){
+	agent  {image 'node:7-alpine' }
+	steps{
+		sh 'node ${env.WORKSPACE}/nodejs/server.js'
+	}
+	}
+
         stage('Build images') {
-            steps {
+        steps {
 		script {
 	mongodb = docker.build("${env.registry1}:latest","-f ${env.WORKSPACE}/mongodb/Dockerfile ${env.WORKSPACE}/mongodb/")
        	nodejs = docker.build("${env.registry2}:latest","-f ${env.WORKSPACE}/nodejs/Dockerfile ${env.WORKSPACE}/nodejs/") 
        	nginx =  docker.build("${env.registry3}:latest","-f ${env.WORKSPACE}/nginx/Dockerfile ${env.WORKSPACE}/nginx/") 
                     }
             }
-        }     
+        } 
+   
 	 stage('publish images') {
             steps {
 		script {
@@ -65,6 +73,16 @@ sh "docker stop runing-nginx && echo 'container removed' || echo 'container  doe
             }
         }  
 
+stage('start running images ') {
+            steps {
+sh "docker run --name runing-nginx -u root --net private_net --ip 192.168.50.3 --rm -d -p 85:85 dockeragent89/nginx-ibm:latest"
+
+sh "docker run --name runing-node -u root --net private_net --ip 192.168.50.4 --rm -d -p 4000:4000  dockeragent89/node-ibm:latest"
+
+sh "docker run --name runing-mongo -u root --net private_net --ip 192.168.50.5 --rm -d -p 27017:27017  dockeragent89/mongodb-ibm:latest"
+
+            }
+        }  
 
     }
 }
