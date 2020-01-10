@@ -1,10 +1,10 @@
-from docker.io/node
+from docker.io/node:latest
 WORKDIR /usr/src/app
-COPY package*.json ./
+COPY package*.json /usr/src/app/
 RUN npm install
 RUN npm fund
-COPY . .
+COPY . /usr/src/app/
 EXPOSE 4000
-CMD [ "node", "server.js" ]
+CMD [ "nodemon", "/usr/src/app/server.js" ]
 
 

@@ -1,2 +1,2 @@
-from docker.io/mongo
+from docker.io/mongo:latest
 
