@@ -108,5 +108,23 @@ sh "docker run --name runing-nginx -u root --net private_net --ip 192.168.50.3 -
         }  
 
     }
+
+  post {
+        always {
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            echo "succeeeded!"
+        }
+        unstable {
+            echo "unstable"
+        }
+        failure {
+            echo "failed"
+        }
+
+    }
+
+
 }
 
