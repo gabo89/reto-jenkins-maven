@@ -89,12 +89,9 @@ sh "docker run --name runing-mongo -u root --net private_net --ip 192.168.50.5 -
 }
 
 stage('wait to mongodb ') {
-options {
-                timeout(time: 5, unit: 'MINUTES') 
-            }
-
             steps {
-echo "waiting"
+		echo "waiting"
+		sh "sleep 30000"
 		}
 }
 

@@ -5,6 +5,6 @@ RUN npm install
 RUN npm fund
 COPY server.js ./
 EXPOSE 4000
+ENTRYPOINT [ "node", "server.js" ]
 HEALTHCHECK CMD curl --fail http://localhost:4000/ || exit 1
-CMD [ "node", "server.js" ]
 
