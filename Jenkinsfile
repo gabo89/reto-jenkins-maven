@@ -24,6 +24,15 @@ pipeline {
 	}			
 	}
 
+
+	stage('docker hub repositories'){
+	steps{
+		echo "https://hub.docker.com/repository/docker/dockeragent89/nginx-ibm"
+		echo "https://hub.docker.com/repository/docker/dockeragent89/node-ibm"
+		echo "https://hub.docker.com/repository/docker/dockeragent89/mongodb-ibm"
+	}			
+	}
+
 	stage('test backend as node app before containerize'){
 	steps{
 		dir("${env.WORKSPACE}/nodejs")

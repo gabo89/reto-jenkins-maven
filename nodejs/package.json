@@ -6,6 +6,7 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "http": "0.0.0",
     "jasmine-node": "^3.0.0",
     "mongoose": "^5.8.6",
     "nodemon": "^1.18.10",
