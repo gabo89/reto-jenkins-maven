@@ -1,6 +1,6 @@
 var request = require("request");
-var base_url1 = "http://localhost:4001/retoibm/sumar/142/202";
-var base_url2 = "http://localhost:4001/retoibm/sumar/25/50";
+var base_url1 = "http://localhost:4000/retoibm/sumar/142/202";
+var base_url2 = "http://localhost:4000/retoibm/sumar/25/50";
 var server = require("../server.js");
 
 describe("API sumas ", function() {

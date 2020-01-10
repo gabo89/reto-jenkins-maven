@@ -7,7 +7,7 @@ mongoose.connect(url, {useNewUrlParser: true,useUnifiedTopology:true});
 
 const _server = _express();
 
-const _port = 4001;
+const _port = 4000;
 var db = mongoose.connection;
 db.on('error',function(){
  console.log('connection error:');
