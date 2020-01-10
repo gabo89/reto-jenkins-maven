@@ -21,7 +21,9 @@ pipeline {
 	}
 
 	stage('test backend as node app before containerize'){
-	agent  {image 'node:7-alpine' }
+	agent  {
+		docker {image 'node:7-alpine' }
+	}
 	steps{
 		sh 'node ${env.WORKSPACE}/nodejs/server.js'
 	}
