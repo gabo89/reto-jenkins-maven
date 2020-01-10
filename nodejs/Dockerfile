@@ -1,7 +1,6 @@
 from docker.io/node
 WORKDIR /usr/src/app
 COPY package*.json ./
-COPY node_modules ./
 RUN npm install
 RUN npm fund
 COPY server.js ./
