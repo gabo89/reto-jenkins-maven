@@ -6,9 +6,9 @@ pipeline {
   }
 
  environment {
-    registry1 = "dockeragent89/mongodb-ibm"
-    registry2 = "dockeragent89/node-ibm"
-    registry3 = "dockeragent89/nginx-ibm"
+    registry1 = "dockeragent89/mongodb-ibm-maven"
+    registry2 = "dockeragent89/node-ibm-maven"
+    registry3 = "dockeragent89/nginx-ibm-maven"
     registryCredential = 'dockerhub'
     mongodb = ''
     nodejs=''
@@ -27,9 +27,9 @@ pipeline {
 
 	stage('docker hub repositories'){
 	steps{
-		echo "https://hub.docker.com/repository/docker/dockeragent89/nginx-ibm"
-		echo "https://hub.docker.com/repository/docker/dockeragent89/node-ibm"
-		echo "https://hub.docker.com/repository/docker/dockeragent89/mongodb-ibm"
+		echo "https://hub.docker.com/repository/docker/dockeragent89/nginx-ibm-maven"
+		echo "https://hub.docker.com/repository/docker/dockeragent89/node-ibm-maven"
+		echo "https://hub.docker.com/repository/docker/dockeragent89/mongodb-ibm-maven"
 	}			
 	}
 
@@ -47,7 +47,7 @@ pipeline {
         steps {
 		script {
 	mongodb = docker.build("${env.registry1}:latest","-f ${env.WORKSPACE}/mongodb/Dockerfile ${env.WORKSPACE}/mongodb/")
-       	nodejs = docker.build("${env.registry2}:latest","-f ${env.WORKSPACE}/nodejs/Dockerfile ${env.WORKSPACE}/nodejs/") 
+       	nodejs = docker.build("${env.registry2}:latest","-f ${env.WORKSPACE}/maven/Dockerfile ${env.WORKSPACE}/maven/") 
        	nginx =  docker.build("${env.registry3}:latest","-f ${env.WORKSPACE}/nginx/Dockerfile ${env.WORKSPACE}/nginx/") 
                     }
             }
@@ -68,7 +68,7 @@ pipeline {
 stage('stop running images if available') {
             steps {
 sh "docker stop runing-nginx && echo 'container removed' || echo 'container  does not exist'"
-sh "docker stop runing-node && echo 'container removed' || echo 'container  does not exist'"
+sh "docker stop runing-maven && echo 'container removed' || echo 'container  does not exist'"
 sh "docker stop runing-mongo && echo 'container removed' || echo 'container  does not exist'"
             }
         }   
@@ -77,9 +77,9 @@ sh "docker stop runing-mongo && echo 'container removed' || echo 'container  doe
             steps {
 
 		/* dont allow local old docker.io images break the new images*/
-		sh "docker rmi -f docker.io/dockeragent89/node-ibm && echo 'recent erased ' || echo 'erased'"
-		sh "docker rmi -f docker.io/dockeragent89/nginx-ibm && echo 'recent erased ' || echo 'erased'"
-		sh "docker rmi -f docker.io/dockeragent89/mongodb-ibm && echo 'recent erased ' || echo 'erased'"
+		sh "docker rmi -f docker.io/dockeragent89/node-ibm-maven && echo 'recent erased ' || echo 'erased'"
+		sh "docker rmi -f docker.io/dockeragent89/nginx-ibm-maven && echo 'recent erased ' || echo 'erased'"
+		sh "docker rmi -f docker.io/dockeragent89/mongodb-ibm-maven && echo 'recent erased ' || echo 'erased'"
 		sh "docker rmi -f ${env.registry1}:latest && echo 'recent erased ' || echo 'erased'"
 		sh "docker rmi -f ${env.registry2}:latest && echo 'recent erased ' || echo 'erased'"
 		sh "docker rmi -f ${env.registry3}:latest && echo 'recent erased ' || echo 'erased'"
@@ -112,7 +112,7 @@ stage('wait to mongodb ') {
 
 stage('start frontend-backend containers ') {
             steps {
-sh "docker run --name runing-node -u root --net private_net --ip 192.168.50.4 --rm -d  dockeragent89/node-ibm:latest"
+sh "docker run --name runing-maven -u root --net private_net --ip 192.168.50.4 --rm -d  dockeragent89/maven-ibm:latest"
 
 sh "docker run --name runing-nginx -u root --net private_net --ip 192.168.50.3 --rm -d dockeragent89/nginx-ibm:latest"
 
