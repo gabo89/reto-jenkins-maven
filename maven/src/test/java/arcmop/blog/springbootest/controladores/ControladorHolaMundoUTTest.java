@@ -43,11 +43,12 @@ public class ControladorHolaMundoUTTest {
     @Test
     public void testSaludar() {
         System.out.println("saludar");
-        Integer sum01 = 10;
-        Integer sum02 = 20;
+        Integer sum01 = 100;
+        Integer sum02 = 200;
         ControladorHolaMundo instance = new ControladorHolaMundo();
         Assert.assertNotNull(instance.saludar(sum01, sum02));
-        Assert.assertEquals(30, Integer.parseInt(String.valueOf(instance.saludar(sum01, sum02).get("resultado"))));
+        Assert.assertEquals(300, Integer.parseInt(String.valueOf(instance.saludar(sum01, sum02).get("resultado"))));
+        
     }
 
 }
