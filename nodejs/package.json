@@ -1,9 +1,10 @@
 {
-  "name": "node_retoibm",
+  "name": "simple_app",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "http": "0.0.0",
